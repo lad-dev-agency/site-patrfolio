@@ -426,7 +426,7 @@
      Ключ отримується на сайті Web3Forms: вводите пошту, на яку мають приходити заявки, і ключ приходить листом.
      Вставте його в FORM_KEY нижче. Ключ публічний за задумом — його можна тримати у фронтенді. */
   const FORM_ENDPOINT = "https://api.web3forms.com/submit";
-  const FORM_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+  const FORM_KEY = "e6fab385-c0a6-4bba-be43-8b587e927450";
   const FALLBACK_EMAIL = "lad.devagency@gmail.com";
   const SERVICE_LABELS = { web: "Веб-сайт", mobile: "Застосунок", design: "UI/UX", ai: "AI / боти", devops: "DevOps" };
 
