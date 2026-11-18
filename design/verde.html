@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Verde Market — макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  :root {
+    --cream: #f7f4ec; --cream-2: #efe9db; --ink: #13281f; --muted: #5f6f66; --green: #0b8f6a; --lime: #2bd27b; --deep: #0d3b2c;
+    --line: rgba(19,40,31,.1);
+  }
+  .site { width: 1440px; font-family: "Manrope", sans-serif; color: var(--ink); background: var(--cream); }
+  .serif { font-family: "Fraunces", serif; font-optical-sizing: auto; letter-spacing: -.02em; }
+  .wrap { padding: 0 64px; }
+
+  /* nav */
+  .nav { display: flex; align-items: center; gap: 44px; height: 88px; }
+  .logo { display: flex; align-items: center; gap: 10px; font: 700 30px/1 "Fraunces", serif; color: var(--deep); letter-spacing: -.03em; }
+  .logo i { width: 36px; height: 36px; border-radius: 50% 0 50% 50%; background: linear-gradient(135deg, var(--lime), var(--green)); transform: rotate(-45deg); }
+  .links { display: flex; gap: 30px; font-weight: 600; font-size: 16px; color: #33473d; }
+  .search { flex: 1; display: flex; align-items: center; gap: 10px; height: 50px; padding: 0 20px; border-radius: 30px; background: #fff; border: 1px solid var(--line); color: #8a968f; font-size: 15px; }
+  .nav__r { display: flex; gap: 12px; align-items: center; }
+  .circ { position: relative; width: 50px; height: 50px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; }
+  .badge { position: absolute; top: -3px; right: -3px; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: #ff6a3d; color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; border: 2px solid var(--cream); }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 1fr 1.02fr; gap: 40px; align-items: center; padding: 26px 0 50px; }
+  .pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 8px; border-radius: 30px; background: #fff; border: 1px solid var(--line); font-weight: 700; font-size: 14px; }
+  .pill b { padding: 4px 10px; border-radius: 20px; background: #dff7ea; color: var(--green); font-size: 13px; }
+  .hero h1 { font-size: 78px; line-height: .98; font-weight: 600; margin: 24px 0 22px; color: var(--deep); }
+  .hero h1 em { font-style: italic; color: var(--green); }
+  .hero p { font-size: 19px; line-height: 1.55; color: var(--muted); max-width: 520px; }
+  .btns { display: flex; gap: 12px; margin: 32px 0 38px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; height: 60px; padding: 0 30px; border-radius: 30px; font-weight: 800; font-size: 16px; }
+  .btn--g { background: var(--deep); color: #fff; box-shadow: 0 16px 30px -12px rgba(13,59,44,.6); }
+  .btn--o { border: 1.5px solid var(--ink); }
+  .trust { display: flex; gap: 36px; align-items: center; }
+  .trust div b { display: block; font: 600 30px/1 "Fraunces", serif; color: var(--deep); }
+  .trust div span { font-size: 14px; color: var(--muted); font-weight: 600; }
+  .avs { display: flex; } .avs i { width: 42px; height: 42px; border-radius: 50%; border: 3px solid var(--cream); margin-left: -12px; }
+  .avs i:first-child { margin-left: 0; }
+
+  .art { position: relative; height: 560px; border-radius: 40px; background: radial-gradient(circle at 30% 20%, #3fe08f, #0b8f6a 55%, #07664c); overflow: hidden; }
+  .art::before { content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; left: 50%; top: 56%; transform: translate(-50%, -50%); background: rgba(255,255,255,.12); }
+  .art::after { content: ""; position: absolute; width: 380px; height: 380px; border-radius: 50%; left: 50%; top: 56%; transform: translate(-50%, -50%); background: rgba(255,255,255,.1); }
+  .art .f { position: absolute; z-index: 2; filter: drop-shadow(0 24px 24px rgba(0,40,25,.35)); }
+  .art .label { position: absolute; z-index: 3; display: flex; align-items: center; gap: 12px; padding: 12px 18px 12px 12px; border-radius: 22px; background: #fff; box-shadow: 0 24px 40px -14px rgba(0,30,20,.45); }
+  .art .label > i { width: 46px; height: 46px; border-radius: 14px; background: #eef8e6; display: grid; place-items: center; }
+  .art .label small { display: block; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .art .label b { font-size: 17px; font-weight: 800; }
+  .sticker { position: absolute; z-index: 3; right: 36px; top: 34px; width: 128px; height: 128px; border-radius: 50%; background: #ffd23f; display: grid; place-items: center; text-align: center; transform: rotate(12deg);
+    font: 700 15px/1.1 "Manrope", sans-serif; color: var(--deep); box-shadow: 0 20px 30px -12px rgba(0,0,0,.35); }
+  .sticker b { display: block; font: 700 38px/1 "Fraunces", serif; }
+  .art .tag { position: absolute; left: 36px; top: 34px; z-index: 3; color: #fff; font: italic 600 30px/1.05 "Fraunces", serif; }
+  .art .tag small { display: block; font: 600 14px/1.4 "Manrope", sans-serif; font-style: normal; opacity: .8; margin-top: 8px; }
+
+  /* categories */
+  .cats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+  .cat { display: flex; align-items: center; gap: 14px; padding: 14px; border-radius: 24px; background: #fff; border: 1px solid var(--line); }
+  .cat > i { width: 58px; height: 58px; border-radius: 18px; display: grid; place-items: center; }
+  .cat b { display: block; font-size: 17px; font-weight: 800; } .cat span { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+  /* products */
+  .head { display: flex; justify-content: space-between; align-items: end; margin: 64px 0 26px; }
+  .head h2 { font-size: 46px; font-weight: 600; color: var(--deep); }
+  .tabs { display: flex; gap: 8px; }
+  .tabs span { padding: 11px 20px; border-radius: 30px; border: 1px solid var(--line); font-weight: 700; font-size: 15px; background: #fff; }
+  .tabs span.on { background: var(--deep); color: #fff; border-color: var(--deep); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .prod { border-radius: 30px; background: #fff; border: 1px solid var(--line); padding: 12px 12px 20px; }
+  .prod__img { position: relative; height: 220px; border-radius: 22px; display: grid; place-items: center; }
+  .prod__img .f { filter: drop-shadow(0 18px 16px rgba(0,0,0,.18)); }
+  .prod__img .disc { position: absolute; left: 12px; top: 12px; padding: 5px 11px; border-radius: 20px; background: #ff6a3d; color: #fff; font-weight: 800; font-size: 13px; }
+  .prod__img .heart { position: absolute; right: 12px; top: 12px; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.85); display: grid; place-items: center; }
+  .prod__b { padding: 16px 8px 0; }
+  .prod__farm { font-size: 13px; font-weight: 700; color: var(--green); }
+  .prod h3 { font-size: 20px; font-weight: 800; margin: 4px 0 2px; }
+  .prod__w { font-size: 14px; color: var(--muted); font-weight: 600; }
+  .prod__f { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; }
+  .prod__f b { font: 600 28px/1 "Fraunces", serif; color: var(--deep); }
+  .prod__f s { font-size: 15px; color: #9aa59f; margin-left: 6px; font-weight: 600; }
+  .add { width: 48px; height: 48px; border-radius: 50%; background: var(--deep); display: grid; place-items: center; }
+
+  /* subscription banner */
+  .sub { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; margin: 64px 0; padding: 56px 64px; border-radius: 40px; background: var(--deep); color: #fff; }
+  .sub h2 { font-size: 52px; font-weight: 600; line-height: 1.02; }
+  .sub h2 em { color: #7ff0b0; }
+  .sub p { margin: 18px 0 28px; font-size: 18px; line-height: 1.55; color: #b9d4c8; max-width: 480px; }
+  .sub .btn { background: #ffd23f; color: var(--deep); }
+  .plans { display: grid; gap: 14px; }
+  .plan { display: flex; align-items: center; gap: 18px; padding: 20px 22px; border-radius: 24px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+  .plan.on { background: #fff; color: var(--ink); }
+  .plan > i { width: 56px; height: 56px; border-radius: 18px; background: rgba(255,255,255,.1); display: grid; place-items: center; }
+  .plan.on > i { background: #eef8e6; }
+  .plan div { flex: 1; } .plan b { display: block; font-size: 19px; font-weight: 800; } .plan span { font-size: 14px; opacity: .7; font-weight: 600; }
+  .plan strong { font: 600 26px/1 "Fraunces", serif; }
+  .foot { display: flex; justify-content: space-between; align-items: center; padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-weight: 600; font-size: 15px; }
+
+  /* ---------- mobile cart ---------- */
+  .m { font-family: "Manrope", sans-serif; color: var(--ink); background: var(--cream); }
+  .m .pad { padding: 0 22px; }
+  .m__h { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 18px; }
+  .m__h h2 { font: 600 32px/1 "Fraunces", serif; color: var(--deep); }
+  .m__h span { font-size: 14px; font-weight: 700; color: var(--green); }
+  .slot { display: flex; gap: 8px; margin-bottom: 16px; }
+  .slot span { flex: 1; padding: 10px 0; border-radius: 16px; background: #fff; border: 1px solid var(--line); text-align: center; font-size: 13px; font-weight: 700; line-height: 1.3; color: var(--muted); }
+  .slot span b { display: block; font-size: 15px; color: var(--ink); }
+  .slot span.on { background: var(--deep); border-color: var(--deep); color: #b9d4c8; }
+  .slot span.on b { color: #fff; }
+  .item { display: flex; align-items: center; gap: 14px; padding: 8px; margin-bottom: 8px; border-radius: 22px; background: #fff; border: 1px solid var(--line); }
+  .item__img { width: 64px; height: 64px; border-radius: 18px; display: grid; place-items: center; flex: none; }
+  .item__t { flex: 1; } .item__t b { display: block; font-size: 16px; font-weight: 800; } .item__t small { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .item__t strong { display: block; margin-top: 6px; font: 600 20px/1 "Fraunces", serif; color: var(--deep); }
+  .qty { display: flex; flex-direction: row; gap: 8px !important; align-items: center; gap: 4px; padding: 6px; border-radius: 16px; background: var(--cream); font-weight: 800; font-size: 15px; }
+  .qty i { width: 28px; height: 28px; border-radius: 10px; background: #fff; display: grid; place-items: center; font-style: normal; font-weight: 800; }
+  .promo { display: flex; align-items: center; gap: 10px; margin: 6px 0 14px; padding: 12px 14px; border-radius: 18px; background: #fff7d6; border: 1px dashed #e7c449; font-size: 14px; font-weight: 700; }
+  .sum { padding: 4px 4px 0; font-size: 15px; font-weight: 600; color: var(--muted); }
+  .sum div { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .sum .tot { color: var(--ink); font-size: 18px; font-weight: 800; padding-top: 10px; border-top: 1px solid var(--line); }
+  .sum .tot b { font: 600 26px/1 "Fraunces", serif; color: var(--deep); }
+  .pay { position: absolute; left: 22px; right: 22px; bottom: 30px; height: 62px; border-radius: 22px; background: var(--deep); color: #fff; display: flex; align-items: center; justify-content: space-between; padding: 0 10px 0 24px; font-weight: 800; font-size: 17px; box-shadow: 0 16px 30px -10px rgba(13,59,44,.6); }
+  .pay span { height: 44px; padding: 0 16px; border-radius: 15px; background: #ffd23f; color: var(--deep); display: grid; place-items: center; font-size: 15px; }
+
+  /* ---------- сцени ---------- */
+  .cover { width: 1000px; height: 1500px; }
+  .cover .bwrap { position: absolute; left: 120px; top: 40px; width: 1440px; transform: scale(.66); transform-origin: 0 0; }
+  .cover .browser { height: 1080px; }
+  .cover .phone { position: absolute; left: 50px; top: 520px; transform: rotate(-4deg); }
+  .cover .toast { position: absolute; z-index: 4; left: 530px; top: 820px; display: flex; align-items: center; gap: 14px; padding: 16px 22px 16px 16px; border-radius: 24px; background: #fff;
+    font-family: "Manrope", sans-serif; color: var(--ink); box-shadow: 0 30px 60px -20px rgba(0,0,0,.45); transform: rotate(3deg); }
+  .toast i { width: 50px; height: 50px; border-radius: 16px; background: #dff7ea; display: grid; place-items: center; font-style: normal; font-size: 24px; font-weight: 800; color: var(--green); }
+  .toast small { display: block; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .toast b { font-size: 20px; font-weight: 800; }
+
+  .page { width: 1520px; padding: 40px; }
+</style>
+</head>
+<body>
+
+<!-- ================= Сайт (десктоп) ================= -->
+<template id="site">
+  <div class="site">
+    <div class="wrap">
+      <nav class="nav">
+        <span class="logo"><i></i>verde</span>
+        <span class="links"><span>Каталог</span><span>Кошики тижня</span><span>Фермери</span><span>Доставка</span></span>
+        <span class="search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Шукати авокадо, сир, хліб…</span>
+        <span class="nav__r">
+          <span class="circ"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#13281f" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span>
+          <span class="circ"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#13281f" stroke-width="2" stroke-linejoin="round"><path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.7H8.5a2 2 0 0 1-2-1.7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><b class="badge">3</b></span>
+        </span>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <span class="pill"><b>● Сьогодні</b>Доставка з 16:00 по Києву</span>
+          <h1 class="serif">Свіже з ферми — <em>до столу</em> за 2 години</h1>
+          <p>Овочі, фрукти, сири й хліб від 140 українських фермерів. Збираємо вранці — привозимо того ж дня.</p>
+          <div class="btns"><span class="btn btn--g">Обрати продукти →</span><span class="btn btn--o">Кошик за підпискою</span></div>
+          <div class="trust">
+            <span class="avs"><i style="background:#ffb38a"></i><i style="background:#9ad1a8"></i><i style="background:#f6d06b"></i><i style="background:#c7b4f0"></i></span>
+            <div><b>4,9 ★</b><span>12 400 відгуків</span></div>
+            <div><b>140+</b><span>фермерських господарств</span></div>
+          </div>
+        </div>
+
+        <div class="art">
+          <div class="tag">Сезон гарбузів<small>і яблук із Закарпаття</small></div>
+          <div class="sticker"><div>−20%<b>1-й</b>кошик</div></div>
+          <i class="f" data-f="pumpkin" style="width:270px;left:150px;top:200px"></i>
+          <i class="f" data-f="apple" style="width:150px;left:390px;top:260px"></i>
+          <i class="f" data-f="avocado" style="width:150px;left:70px;top:330px;transform:rotate(-20deg)"></i>
+          <i class="f" data-f="carrot" style="width:190px;left:420px;top:380px;transform:rotate(30deg)"></i>
+          <i class="f" data-f="tomato" style="width:120px;left:280px;top:420px"></i>
+          <i class="f" data-f="leaf" style="width:120px;left:470px;top:150px;transform:rotate(25deg)"></i>
+          <div class="label" style="left:40px;bottom:32px"><i data-f="avocado" style="width:34px"></i><div><small>Авокадо Хасс · 2 шт</small><b>₴78</b></div></div>
+        </div>
+      </section>
+
+      <div class="cats">
+        <div class="cat"><i style="background:#e9f6df"><i data-f="leaf" style="width:38px"></i></i><div><b>Зелень</b><span>48 товарів</span></div></div>
+        <div class="cat"><i style="background:#ffe9e2"><i data-f="tomato" style="width:40px"></i></i><div><b>Овочі</b><span>126 товарів</span></div></div>
+        <div class="cat"><i style="background:#fff3cf"><i data-f="lemon" style="width:42px"></i></i><div><b>Фрукти</b><span>94 товари</span></div></div>
+        <div class="cat"><i style="background:#eef1f8"><i data-f="milk" style="width:30px"></i></i><div><b>Молочне</b><span>71 товар</span></div></div>
+        <div class="cat"><i style="background:#f7ebdc"><i data-f="bread" style="width:44px"></i></i><div><b>Пекарня</b><span>38 товарів</span></div></div>
+        <div class="cat"><i style="background:#fdeedd"><i data-f="cheese" style="width:42px"></i></i><div><b>Сири</b><span>52 товари</span></div></div>
+      </div>
+
+      <div class="head"><h2 class="serif">Хіти тижня</h2><div class="tabs"><span class="on">Усе</span><span>Сезонне</span><span>Органік</span><span>До −30%</span></div></div>
+      <div class="grid">
+        <div class="prod"><div class="prod__img" style="background:#fff0e6"><span class="disc">−15%</span><span class="heart">♡</span><i class="f" data-f="pumpkin" style="width:150px"></i></div>
+          <div class="prod__b"><span class="prod__farm">Ферма «Гарбузове поле»</span><h3>Гарбуз мускатний</h3><span class="prod__w">≈ 1,5 кг</span><div class="prod__f"><span><b>₴54</b><s>₴64</s></span><span class="add"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div></div></div>
+        <div class="prod"><div class="prod__img" style="background:#edf7e4"><span class="heart">♡</span><i class="f" data-f="avocado" style="width:130px;transform:rotate(-15deg)"></i></div>
+          <div class="prod__b"><span class="prod__farm">Імпорт · Перу</span><h3>Авокадо Хасс</h3><span class="prod__w">2 шт · стиглі</span><div class="prod__f"><span><b>₴78</b></span><span class="add"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div></div></div>
+        <div class="prod"><div class="prod__img" style="background:#ffe9e4"><span class="disc">Новинка</span><span class="heart">♡</span><i class="f" data-f="tomato" style="width:140px"></i></div>
+          <div class="prod__b"><span class="prod__farm">Теплиці «Сонячна долина»</span><h3>Томати Рожевий мед</h3><span class="prod__w">500 г</span><div class="prod__f"><span><b>₴69</b></span><span class="add"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div></div></div>
+        <div class="prod"><div class="prod__img" style="background:#fdf1dc"><span class="heart">♡</span><i class="f" data-f="cheese" style="width:150px"></i></div>
+          <div class="prod__b"><span class="prod__farm">Сироварня «Сирна ферма»</span><h3>Сир Качотта з травами</h3><span class="prod__w">250 г</span><div class="prod__f"><span><b>₴186</b></span><span class="add"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></div></div></div>
+      </div>
+
+      <section class="sub">
+        <div>
+          <h2 class="serif">Кошик тижня — <em>без зайвих</em> клопотів</h2>
+          <p>Обирайте розмір, а ми щотижня збираємо найсвіжіше з сезону. Пауза чи зміна складу — в один дотик.</p>
+          <span class="btn">Підписатися · −10% →</span>
+        </div>
+        <div class="plans">
+          <div class="plan"><i><i data-f="apple" style="width:34px"></i></i><div><b>Міні · для одного</b><span>8–10 позицій, ~5 кг</span></div><strong>₴690</strong></div>
+          <div class="plan on"><i><i data-f="pumpkin" style="width:36px"></i></i><div><b>Сімейний</b><span>15–18 позицій, ~10 кг · найпопулярніший</span></div><strong>₴1 190</strong></div>
+          <div class="plan"><i><i data-f="cheese" style="width:34px"></i></i><div><b>Гурман</b><span>сири, хліб на заквасці, делікатеси</span></div><strong>₴1 650</strong></div>
+        </div>
+      </section>
+
+      <div class="foot"><span class="logo" style="font-size:24px"><i style="width:28px;height:28px"></i>verde</span><span>Київ · Львів · Одеса · Дніпро · ще 5 міст</span><span>© 2026 Verde Market</span></div>
+    </div>
+  </div>
+</template>
+
+<!-- ================= Мобільний кошик ================= -->
+<template id="cart" data-class="m">
+  <div class="pad">
+    <div class="m__h"><h2>Кошик</h2><span>Очистити</span></div>
+    <div class="slot"><span class="on"><b>Сьогодні</b>16:00–18:00</span><span><b>Сьогодні</b>18:00–20:00</span><span><b>Завтра</b>09:00–11:00</span></div>
+    <div class="item"><div class="item__img" style="background:#fff0e6"><i data-f="pumpkin" style="width:56px"></i></div><div class="item__t"><b>Гарбуз мускатний</b><small>≈ 1,5 кг · фермерський</small><strong>₴54</strong></div><div class="qty"><i>+</i>1<i>−</i></div></div>
+    <div class="item"><div class="item__img" style="background:#edf7e4"><i data-f="avocado" style="width:48px"></i></div><div class="item__t"><b>Авокадо Хасс</b><small>2 шт · стиглі</small><strong>₴78</strong></div><div class="qty"><i>+</i>2<i>−</i></div></div>
+    <div class="item"><div class="item__img" style="background:#fdf1dc"><i data-f="cheese" style="width:54px"></i></div><div class="item__t"><b>Сир Качотта</b><small>250 г · Сирна ферма</small><strong>₴186</strong></div><div class="qty"><i>+</i>1<i>−</i></div></div>
+    <div class="promo">🎁 Промокод VERDE20 застосовано · −20%</div>
+    <div class="sum">
+      <div><span>Товари</span><span>₴396</span></div>
+      <div><span>Знижка</span><span style="color:#0b8f6a">−₴79</span></div><div><span>Доставка</span><span>Безкоштовно</span></div>
+      
+      <div class="tot"><span>Разом</span><b>₴317</b></div>
+    </div>
+  </div>
+  <div class="pay">Оплатити в 1 дотик<span> Pay</span></div>
+</template>
+
+<div class="stage">
+  <!-- ================= ОБКЛАДИНКА (вертикальна) ================= -->
+  <div class="scene cover" data-shot="cover">
+    <div class="bwrap"><div class="browser"><div class="browser__bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">verde.market</span></div><div data-clone="site"></div></div></div>
+    <div class="phone" data-screen="cart"></div>
+    <div class="toast"><i>✓</i><div><small>Замовлення №48217</small><b>Кур'єр буде о 16:40</b></div></div>
+  </div>
+
+  <!-- ================= ПОВНА СТОРІНКА ================= -->
+  <div class="scene page" data-shot="page">
+    <div class="browser"><div class="browser__bar"><span class="dots"><i></i><i></i><i></i></span><span class="url">verde.market</span></div><div data-clone="site"></div></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+/* Ілюстрації продуктів (SVG, viewBox 100×100) */
+const F = {
+  tomato: `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="58" rx="42" ry="36" fill="#e8432e"/><ellipse cx="50" cy="60" rx="42" ry="34" fill="#f2553d"/><path d="M30 48c4-10 14-14 20-14" stroke="#fff" stroke-opacity=".5" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M50 22l6 10 12-3-7 9 10 6-13 1-8 9-8-9-13-1 10-6-7-9 12 3z" fill="#2f8f3a"/><rect x="47" y="12" width="6" height="14" rx="3" fill="#2f8f3a"/></svg>`,
+  avocado: `<svg viewBox="0 0 100 100"><path d="M50 4c14 0 20 16 26 34 6 18 10 30 4 44-5 11-17 16-30 16S25 93 20 82c-6-14-2-26 4-44C30 20 36 4 50 4z" fill="#2f5d2a"/><path d="M50 12c10 0 15 13 20 29 5 15 8 26 3 37-4 8-13 12-23 12s-19-4-23-12c-5-11-2-22 3-37 5-16 10-29 20-29z" fill="#d6e889"/><path d="M50 18c8 0 12 12 16 25" stroke="#eef6b8" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="50" cy="66" r="17" fill="#8a5a2b"/><circle cx="45" cy="61" r="5" fill="#b07a45"/></svg>`,
+  lemon: `<svg viewBox="0 0 100 100"><path d="M8 52c0-20 20-34 42-34s42 14 42 34-20 30-42 30S8 72 8 52z" fill="#ffd23f"/><path d="M4 52l8-6v12zM96 52l-8-6v12z" fill="#ffc21a"/><path d="M28 40c8-8 18-10 26-10" stroke="#fff3a8" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M60 20c6-10 18-14 26-10-4 10-16 14-26 10z" fill="#3fa04a"/></svg>`,
+  carrot: `<svg viewBox="0 0 100 100"><path d="M58 30 L88 96 L34 46 Z" fill="#ff8a2a" stroke="#ff8a2a" stroke-width="18" stroke-linejoin="round"/><path d="M50 50l12 4M60 68l10 2M70 82l6 1" stroke="#e86e14" stroke-width="3" stroke-linecap="round"/><path d="M44 36C36 22 30 14 18 10c4 12 12 20 26 26zM48 30c-2-14 0-22 8-28 4 10 2 20-8 28zM40 40C26 36 16 38 8 44c12 4 22 2 32-4z" fill="#3fa04a"/></svg>`,
+  apple: `<svg viewBox="0 0 100 100"><path d="M50 30c-10-8-38-8-40 22-2 26 18 44 30 44 5 0 7-3 10-3s5 3 10 3c12 0 32-18 30-44-2-30-30-30-40-22z" fill="#e8432e"/><path d="M50 32c10-7 36-7 38 20 0 4-1 8-2 12-6-20-20-26-36-32z" fill="#c42e1e" opacity=".6"/><path d="M24 50c2-10 10-14 16-14" stroke="#ff9a8a" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M50 32c0-10 2-18 6-24" stroke="#6b4423" stroke-width="5" stroke-linecap="round" fill="none"/><path d="M56 18c8-10 20-10 26-6-6 10-18 12-26 6z" fill="#3fa04a"/></svg>`,
+  pumpkin: `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="60" rx="46" ry="34" fill="#ff8a2a"/><ellipse cx="50" cy="60" rx="28" ry="34" fill="#ff9d3f"/><ellipse cx="50" cy="60" rx="12" ry="33" fill="#ffad55"/><path d="M14 56c2-14 12-22 22-24" stroke="#ffc58a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/><path d="M48 28c0-10 2-16 8-22 4 2 4 4 2 6-4 4-4 10-4 16z" fill="#5b7a2a"/><path d="M58 22c10-8 24-6 28 2-10 6-20 6-28-2z" fill="#3fa04a"/></svg>`,
+  leaf: `<svg viewBox="0 0 100 100"><path d="M50 96C20 80 10 50 22 26 34 6 50 4 50 4s16 2 28 22c12 24 2 54-28 70z" fill="#3fbf5f"/><path d="M50 96V14M50 40l-14-10M50 56l-18-12M50 72l-16-10M50 40l14-10M50 56l18-12M50 72l16-10" stroke="#1f8f3e" stroke-width="3" stroke-linecap="round" fill="none"/></svg>`,
+  milk: `<svg viewBox="0 0 70 100"><path d="M20 4h30v14l12 16v58a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V34l12-16z" fill="#fff" stroke="#c9d3e6" stroke-width="3"/><rect x="18" y="2" width="34" height="10" rx="3" fill="#4a7bd8"/><rect x="8" y="48" width="54" height="30" fill="#4a7bd8"/><path d="M18 62c6-6 12 6 18 0s12 6 18 0" stroke="#fff" stroke-width="4" fill="none"/></svg>`,
+  bread: `<svg viewBox="0 0 100 70"><path d="M6 44C6 20 28 8 50 8s44 12 44 36c0 10-4 18-12 18H18C10 62 6 54 6 44z" fill="#d9924a"/><path d="M10 46C10 26 30 14 50 14s40 12 40 32" fill="none" stroke="#b8702c" stroke-width="2"/><path d="M28 22l10 16M46 18l8 18M64 20l6 16" stroke="#f3c88a" stroke-width="5" stroke-linecap="round"/></svg>`,
+  cheese: `<svg viewBox="0 0 100 80"><path d="M6 36L70 6l24 30v34H6z" fill="#ffc94d"/><path d="M6 36h88v34H6z" fill="#ffb627"/><circle cx="28" cy="52" r="7" fill="#e89a10"/><circle cx="62" cy="58" r="5" fill="#e89a10"/><circle cx="80" cy="46" r="4" fill="#e89a10"/><circle cx="50" cy="24" r="5" fill="#f0b030"/></svg>`
+};
+document.querySelectorAll("[data-f]").forEach((el) => {
+  el.innerHTML = F[el.dataset.f];
+  el.style.display = "block";
+  el.querySelector("svg").style.width = "100%";
+  el.querySelector("svg").style.height = "auto";
+});
+</script>
+</body>
+</html>

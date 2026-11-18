@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Kavarnia 1890 — макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  :root { --car: #c8873a; --brown: #5a2f1c; --dark: #2a160d; --cream: #f6ecdd; --cream-2: #efe0c8; --ink: #2a160d; --muted: #8a6f5c; --line: rgba(42,22,13,.1); }
+  .ff { font-family: "Manrope", sans-serif; color: var(--ink); }
+  .serif { font-family: "DM Serif Display", serif; font-weight: 400; }
+
+  /* ---------- app ---------- */
+  .app { background: var(--cream); }
+  .pad { padding: 0 20px; }
+  .hd { display: flex; justify-content: space-between; align-items: center; margin: 8px 0 18px; }
+  .hd small { display: block; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .hd b { font: 400 28px/1.1 "DM Serif Display", serif; }
+  .hd .bdg { width: 48px; height: 48px; }
+  .stamp { position: relative; overflow: hidden; padding: 20px; border-radius: 26px; background: var(--brown); color: var(--cream); box-shadow: 0 24px 40px -20px rgba(42,22,13,.7); }
+  .stamp::after { content: ""; position: absolute; right: -50px; top: -50px; width: 170px; height: 170px; border-radius: 50%; border: 18px solid rgba(200,135,58,.18); }
+  .stamp__t { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; color: #e7cfae; }
+  .stamp h3 { font: 400 23px/1.15 "DM Serif Display", serif; margin: 8px 0 16px; }
+  .stamp h3 em { color: var(--car); }
+  .cups { display: grid; grid-template-columns: repeat(5, 46px); justify-content: space-between; row-gap: 10px; }
+  .cups i { width: 46px; height: 46px; border-radius: 50%; border: 2px dashed rgba(246,236,221,.3); display: grid; place-items: center; }
+  .cups i.on { border: 0; background: var(--car); }
+  .cups i.on::after { content: ""; width: 13px; height: 7px; margin-top: -4px; border: solid var(--brown); border-width: 0 0 3px 3px; transform: rotate(-45deg); }
+  .cups i.gift { border: 2px solid var(--car); color: var(--car); font-style: normal; font-weight: 800; font-size: 11px; letter-spacing: .04em; }
+  .sec { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 10px; }
+  .sec h4 { font: 400 22px "DM Serif Display", serif; } .sec a { font-size: 14px; font-weight: 700; color: var(--car); }
+  .prods { display: flex; gap: 12px; }
+  .prod { flex: none; width: 150px; padding: 12px; border-radius: 22px; background: #fff; border: 1px solid var(--line); }
+  .prod .img { height: 92px; border-radius: 16px; display: grid; place-items: center; }
+  .prod b { display: block; font-size: 15px; margin-top: 10px; } .prod small { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .prod .pr { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; font-weight: 800; }
+  .prod .pr i { width: 30px; height: 30px; border-radius: 10px; background: var(--brown); color: #fff; display: grid; place-items: center; font-style: normal; font-weight: 800; }
+  .near { display: flex; gap: 12px; align-items: center; margin-top: 14px; padding: 12px; border-radius: 20px; background: var(--cream-2); }
+  .near i { width: 46px; height: 46px; border-radius: 14px; background: var(--brown); display: grid; place-items: center; font-style: normal; font-size: 20px; }
+  .near b { display: block; font-size: 15px; } .near small { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .near span { margin-left: auto; font-weight: 800; font-size: 13px; color: #2f8f4e; }
+  .tabs { position: absolute; left: 14px; right: 14px; bottom: 26px; height: 70px; border-radius: 24px; background: var(--dark); display: flex; justify-content: space-around; align-items: center; }
+  .tabs span { font-size: 11px; font-weight: 700; color: #a88b72; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .tabs span.on { color: var(--cream); }
+  .tabs svg { stroke: currentColor; }
+
+  /* product */
+  .pp { background: var(--cream); }
+  .pp .hero { position: relative; height: 420px; margin-top: -54px; background: radial-gradient(circle at 50% 60%, #dca46a, var(--car) 60%, #a86a2a); display: grid; place-items: center; }
+  .pp .hero .nav { position: absolute; top: 64px; left: 20px; right: 20px; display: flex; justify-content: space-between; }
+  .pp .hero .nav i { width: 44px; height: 44px; border-radius: 14px; background: rgba(255,255,255,.25); display: grid; place-items: center; font-style: normal; color: #fff; font-size: 20px; font-weight: 700; }
+  .latte { width: 230px; height: 230px; border-radius: 50%; background: #fff; display: grid; place-items: center; box-shadow: 0 30px 50px -15px rgba(42,22,13,.6), inset 0 0 0 14px #f4ede4; margin-top: 50px; }
+  .latte .x { width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle at 50% 55%, #f6e7d2 0 22%, #b97a3e 23% 26%, #f6e7d2 27% 33%, #b97a3e 34% 37%, #f6e7d2 38% 44%, #9b5d27 45%); }
+  .pp .body { position: relative; margin-top: -26px; padding: 24px 20px; border-radius: 28px 28px 0 0; background: var(--cream); }
+  .pp h2 { font: 400 32px/1.05 "DM Serif Display", serif; } .pp .desc { font-size: 14px; color: var(--muted); font-weight: 600; margin: 6px 0 18px; }
+  .lbl { font-size: 13px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+  .opts { display: flex; gap: 8px; margin-bottom: 16px; }
+  .opts span { flex: 1; text-align: center; padding: 11px 0; border-radius: 14px; background: #fff; border: 1px solid var(--line); font-weight: 700; font-size: 14px; }
+  .opts span small { display: block; font-size: 11px; color: var(--muted); }
+  .opts span.on { background: var(--brown); border-color: var(--brown); color: var(--cream); } .opts span.on small { color: #d9bf9e; }
+  .pick { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-radius: 16px; background: var(--cream-2); font-weight: 700; font-size: 15px; }
+  .pick b { color: var(--brown); }
+  .buy { position: absolute; left: 20px; right: 20px; bottom: 30px; height: 60px; border-radius: 20px; background: var(--dark); color: var(--cream); display: flex; justify-content: space-between; align-items: center; padding: 0 22px; font-weight: 800; font-size: 17px; }
+
+  /* ready */
+  .rd { background: var(--brown); color: var(--cream); text-align: center; }
+  .rd .pad { padding-top: 40px; }
+  .rd .bdg { width: 90px; height: 90px; margin: 0 auto; }
+  .rd h2 { font: 400 36px/1.1 "DM Serif Display", serif; margin: 24px 0 10px; } .rd h2 em { color: var(--car); }
+  .rd p { font-size: 15px; color: #d9bf9e; font-weight: 600; line-height: 1.5; }
+  .ticket { margin: 28px 10px 0; padding: 22px; border-radius: 26px; background: var(--cream); color: var(--ink); position: relative; }
+  .ticket::before, .ticket::after { content: ""; position: absolute; top: 118px; width: 26px; height: 26px; border-radius: 50%; background: var(--brown); }
+  .ticket::before { left: -13px; } .ticket::after { right: -13px; }
+  .ticket small { font-size: 13px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; }
+  .ticket .no { font: 400 64px/1 "DM Serif Display", serif; color: var(--brown); margin: 6px 0 22px; }
+  .ticket .cut { border-top: 2px dashed var(--line); margin: 0 -22px 20px; }
+  .qr { width: 150px; height: 150px; margin: 0 auto; display: grid; grid-template-columns: repeat(15, 1fr); gap: 1px; }
+  .qr i { background: var(--ink); border-radius: 1px; } .qr i.o { background: transparent; }
+  .ticket .addr { margin-top: 16px; font-weight: 700; font-size: 14px; }
+
+  /* ---------- бренд-борд ---------- */
+  .board { width: 1440px; height: 960px; display: grid; grid-template-columns: 1.15fr 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 18px; padding: 18px; background: #1d0f08; border-radius: 28px; }
+  .tile { position: relative; overflow: hidden; border-radius: 22px; }
+  .t-logo { grid-row: span 2; background: var(--brown); display: grid; place-items: center; }
+  .t-logo .bdg { width: 380px; height: 380px; }
+  .t-logo .cap { position: absolute; left: 30px; bottom: 26px; right: 30px; display: flex; justify-content: space-between; color: #d9bf9e; font: 700 13px "Manrope"; letter-spacing: .14em; text-transform: uppercase; }
+  .t-pal { background: var(--cream); display: grid; grid-template-columns: repeat(4, 1fr); }
+  .t-pal div { display: flex; flex-direction: column; justify-content: flex-end; padding: 18px 14px; font: 700 13px "Manrope"; }
+  .t-pal div b { display: block; font: 400 22px "DM Serif Display", serif; margin-bottom: 4px; }
+  .t-type { background: var(--cream-2); padding: 28px; color: var(--ink); }
+  .t-type .aa { font: 400 120px/0.9 "DM Serif Display", serif; color: var(--brown); }
+  .t-type .aa em { color: var(--car); }
+  .t-type .nm { font: 700 14px "Manrope"; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; }
+  .t-type p { font: 500 15px/1.5 "Manrope"; color: #5b4335; }
+  .t-type .smp { font: 400 38px/1.05 "DM Serif Display", serif; color: var(--ink); margin-top: 26px; } .t-type .smp em { color: var(--car); }
+  .t-type .abc { font: 600 13px/1.4 "Manrope"; letter-spacing: .08em; color: var(--muted); margin-top: 14px; }
+  .t-cup { background: radial-gradient(circle at 50% 70%, #e2b27a, var(--car) 70%); display: grid; place-items: end center; }
+  .t-pattern { background: var(--dark); display: grid; place-items: center; }
+  .pattern { position: absolute; inset: 0; opacity: .22; background-image: radial-gradient(ellipse 10px 14px at 50% 50%, var(--car) 60%, transparent 62%); background-size: 46px 46px; }
+  .t-pattern .menu { position: relative; width: 230px; padding: 26px 24px; border-radius: 8px; background: var(--cream); color: var(--ink); box-shadow: 0 30px 40px -18px rgba(0,0,0,.6); transform: rotate(-4deg); }
+  .menu h5 { font: 400 28px "DM Serif Display", serif; text-align: center; color: var(--brown); }
+  .menu h5 + small { display: block; text-align: center; font: 700 10px "Manrope"; letter-spacing: .2em; color: var(--car); margin-bottom: 14px; }
+  .menu div { display: flex; justify-content: space-between; font: 600 14px "Manrope"; padding: 6px 0; border-bottom: 1px dotted #cdb79a; }
+
+  .bdg, .c-bag, .c-cup, .c-badge, .prod .img > span, .t-cup > span { display: block; }
+  .bdg svg, .c-bag svg, .c-cup svg, .c-badge svg, .prod .img svg, .t-cup svg { display: block; width: 100%; height: auto; }
+  /* ---------- сцени ---------- */
+  .cover { width: 1000px; height: 1500px; }
+  .cover .c-bag { position: absolute; left: 470px; top: 40px; width: 360px; transform: rotate(6deg); filter: drop-shadow(0 40px 40px rgba(0,0,0,.4)); }
+  .cover .c-cup { position: absolute; left: 140px; top: 120px; width: 300px; transform: rotate(-8deg); filter: drop-shadow(0 40px 40px rgba(0,0,0,.45)); }
+  .cover .c-badge { position: absolute; left: 760px; top: 470px; width: 170px; transform: rotate(14deg); filter: drop-shadow(0 20px 24px rgba(0,0,0,.4)); }
+  .cover .phone { position: absolute; left: 300px; top: 560px; transform: rotate(-5deg); }
+  .gallery { width: 1500px; height: 960px; display: flex; gap: 70px; justify-content: center; align-items: center; }
+  .gallery .phone:nth-child(2) { transform: translateY(-30px); }
+  .flat { width: 1520px; padding: 40px; }
+</style>
+</head>
+<body>
+
+<!-- Бейдж-логотип -->
+<template id="badge">
+  <svg viewBox="0 0 200 200">
+    <defs><path id="circ" d="M100 100 m-74 0 a74 74 0 1 1 148 0 a74 74 0 1 1 -148 0"/></defs>
+    <circle cx="100" cy="100" r="98" fill="#f6ecdd"/>
+    <circle cx="100" cy="100" r="90" fill="none" stroke="#5a2f1c" stroke-width="2"/>
+    <circle cx="100" cy="100" r="58" fill="none" stroke="#5a2f1c" stroke-width="1.5"/>
+    <text font-family="Manrope" font-weight="800" font-size="13" letter-spacing="5.2" fill="#5a2f1c"><textPath href="#circ">KAVARNIA · ЛЬВІВ · З 1890 РОКУ ·</textPath></text>
+    <text x="100" y="112" text-anchor="middle" font-family="DM Serif Display" font-size="40" fill="#5a2f1c">1890</text>
+    <ellipse cx="100" cy="72" rx="7" ry="10" fill="#c8873a" transform="rotate(30 100 72)"/>
+    <path d="M97 64 q6 8 0 16" stroke="#f6ecdd" stroke-width="1.6" fill="none" transform="rotate(30 100 72)"/>
+    <path d="M80 128 h40" stroke="#c8873a" stroke-width="2"/>
+  </svg>
+</template>
+
+<!-- Стаканчик -->
+<template id="cup">
+  <svg viewBox="0 0 200 300">
+    <path d="M30 70 L170 70 L150 290 L50 290Z" fill="#f6ecdd"/>
+    <path d="M30 70 L100 70 L80 290 L50 290Z" fill="#fff" opacity=".35"/>
+    <path d="M40 140 L160 140 L153 220 L47 220Z" fill="#5a2f1c"/>
+    <text x="100" y="188" text-anchor="middle" font-family="DM Serif Display" font-size="34" fill="#f6ecdd">1890</text>
+    <text x="100" y="208" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="9" letter-spacing="3" fill="#c8873a">KAVARNIA</text>
+    <rect x="22" y="48" width="156" height="26" rx="8" fill="#2a160d"/>
+    <path d="M36 48 Q40 26 70 24 L130 24 Q160 26 164 48Z" fill="#3a2014"/>
+    <rect x="90" y="18" width="30" height="8" rx="4" fill="#2a160d"/>
+  </svg>
+</template>
+
+<!-- Крафт-пакет -->
+<template id="bag">
+  <svg viewBox="0 0 240 320">
+    <path d="M20 60 L220 60 L230 310 L10 310Z" fill="#c8873a"/>
+    <path d="M20 60 L60 60 L52 310 L10 310Z" fill="#b5762f"/>
+    <path d="M20 60 L220 60 L215 88 L25 88Z" fill="#a86a2a"/>
+    <path d="M80 60 C80 10 160 10 160 60" fill="none" stroke="#5a2f1c" stroke-width="8"/>
+    <circle cx="125" cy="190" r="62" fill="#f6ecdd"/>
+    <circle cx="125" cy="190" r="54" fill="none" stroke="#5a2f1c" stroke-width="2"/>
+    <text x="125" y="202" text-anchor="middle" font-family="DM Serif Display" font-size="34" fill="#5a2f1c">1890</text>
+    <text x="125" y="226" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="9" letter-spacing="3" fill="#c8873a">KAVARNIA</text>
+  </svg>
+</template>
+
+<template id="home" data-class="ff app">
+  <div class="pad">
+    <div class="hd"><div><small>Добрий ранок,</small><b>Марто</b></div><span class="bdg" data-clone="badge"></span></div>
+    <div class="stamp">
+      <div class="stamp__t"><span>Картка гостя</span><span>7 / 10</span></div>
+      <h3>Ще 3 чашки — і <em>десята</em> за наш рахунок</h3>
+      <div class="cups"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i class="gift">FREE</i></div>
+    </div>
+    <div class="sec"><h4>Замовити наперед</h4><a>Меню</a></div>
+    <div class="prods">
+      <div class="prod"><div class="img" style="background:#f0dcc0"><span data-clone="cup" style="width:56px"></span></div><b>Флет-вайт</b><small>250 мл · подвійний</small><div class="pr">₴85<i>+</i></div></div>
+      <div class="prod"><div class="img" style="background:#e9d3b6"><span data-clone="cup" style="width:56px"></span></div><b>Лате вівсяне</b><small>350 мл</small><div class="pr">₴95<i>+</i></div></div>
+      <div class="prod"><div class="img" style="background:#f3e3cc"><span data-clone="cup" style="width:56px"></span></div><b>Раф</b><small>350 мл</small><div class="pr">₴98<i>+</i></div></div>
+    </div>
+    <div class="near"><i>📍</i><div><b>Площа Ринок, 12</b><small>3 хв пішки · до 22:00</small></div><span>Відчинено</span></div>
+  </div>
+  <div class="tabs">
+    <span class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Головна</span>
+    <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM17 10h1.5a2.5 2.5 0 0 1 0 5H17M8 2v3M12 2v3"/></svg>Меню</span>
+    <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M12 7v13M3 12h18M12 7c-2-4-6-4-6-1s6 1 6 1 6 2 6-1-4-3-6 1"/></svg>Бонуси</span>
+    <span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Профіль</span>
+  </div>
+</template>
+
+<template id="product" data-class="ff pp">
+  <div class="hero"><div class="nav"><i>‹</i><i>♡</i></div><div class="latte"><svg viewBox="0 0 170 170" width="170" height="170"><defs><radialGradient id="cr" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#b8763a"/><stop offset="1" stop-color="#7a4419"/></radialGradient></defs><circle cx="85" cy="85" r="85" fill="url(#cr)"/><path d="M85 128 C40 100 38 64 60 56 C74 51 82 60 85 70 C88 60 96 51 110 56 C132 64 130 100 85 128Z" fill="#f6e7d2"/><path d="M85 70 C84 90 85 110 85 128" stroke="#c9915a" stroke-width="3" fill="none"/><ellipse cx="85" cy="40" rx="16" ry="7" fill="#f6e7d2" opacity=".9"/><ellipse cx="85" cy="26" rx="8" ry="4" fill="#f6e7d2" opacity=".8"/></svg></div></div>
+  <div class="body">
+    <h2>Лате на вівсяному</h2><div class="desc">Еспресо з ефіопської арабіки, вівсяне молоко, ніжна піна</div>
+    <div class="lbl">Об'єм</div>
+    <div class="opts"><span>S<small>250 мл</small></span><span class="on">M<small>350 мл</small></span><span>L<small>450 мл</small></span></div>
+    <div class="lbl">Додати</div>
+    <div class="opts"><span>Карамель</span><span class="on">Кориця</span><span>+ шот</span></div>
+    <div class="pick"><span>Заберу о</span><b>08:45 · Ринок, 12 ›</b></div>
+  </div>
+  <div class="buy"><span>Замовити</span><span>₴95</span></div>
+</template>
+
+<template id="ready" data-class="ff rd">
+  <div class="pad">
+    <div class="bdg" data-clone="badge"></div>
+    <h2>Ваша кава <em>готова</em></h2>
+    <p>Лате на вівсяному · M<br>Чекає на барній стійці</p>
+    <div class="ticket">
+      <small>Замовлення</small><div class="no">№ 27</div>
+      <div class="cut"></div>
+      <div class="qr" id="qr"></div>
+      <div class="addr">Площа Ринок, 12 · Kavarnia 1890</div>
+    </div>
+  </div>
+</template>
+
+<template id="brand">
+  <div class="board">
+    <div class="tile t-logo"><div class="bdg" data-clone="badge"></div><div class="cap"><span>Kavarnia 1890</span><span>Айдентика · 2026</span></div></div>
+    <div class="tile t-pal">
+      <div style="background:#5a2f1c;color:#f6ecdd"><b>Кава</b>#5A2F1C</div>
+      <div style="background:#c8873a;color:#2a160d"><b>Карамель</b>#C8873A</div>
+      <div style="background:#f6ecdd;color:#2a160d"><b>Піна</b>#F6ECDD</div>
+      <div style="background:#2a160d;color:#f6ecdd"><b>Еспресо</b>#2A160D</div>
+    </div>
+    <div class="tile t-type"><div class="aa">Aa<em>&amp;</em></div><div class="nm">DM Serif Display · Manrope</div><p>Вінтажна антиква для заголовків і чистий гротеск для меню та застосунку.</p><div class="smp">Кава, що пам’ятає <em>старий Львів</em></div><div class="abc">АБВГҐДЕЄЖЗИІЇЙКЛМН · 0123456789</div></div>
+    <div class="tile t-cup"><span data-clone="cup" style="width:150px;margin-bottom:-10px;transform:rotate(-6deg)"></span><span data-clone="bag" style="position:absolute;right:30px;bottom:-20px;width:150px;transform:rotate(8deg)"></span></div>
+    <div class="tile t-pattern"><i class="pattern"></i><div class="menu"><h5>Меню</h5><small>KAVARNIA · 1890</small><div><span>Еспресо</span><span>55</span></div><div><span>Флет-вайт</span><span>85</span></div><div><span>Лате вівсяне</span><span>95</span></div><div><span>Круасан</span><span>60</span></div></div></div>
+  </div>
+</template>
+
+<div class="stage">
+  <div class="scene cover" data-shot="cover">
+    <span class="c-bag" data-clone="bag"></span>
+    <span class="c-cup" data-clone="cup"></span>
+    <div class="phone" data-screen="home"></div>
+    <span class="c-badge" data-clone="badge"></span>
+  </div>
+  <div class="scene flat" data-shot="brand"><div data-clone="brand"></div></div>
+  <div class="scene gallery" data-shot="screens">
+    <div class="phone" data-screen="product"></div>
+    <div class="phone" data-screen="home"></div>
+    <div class="phone" data-screen="ready"></div>
+  </div>
+</div>
+
+<script>
+  // QR-код: детермінований псевдовипадковий візерунок з «оками» по кутах
+  (function () {
+    const q = document.getElementById("ready").content.getElementById("qr");
+    let h = "", seed = 7;
+    const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    for (let y = 0; y < 15; y++) for (let x = 0; x < 15; x++) {
+      const eye = (a, b) => x >= a && x < a + 5 && y >= b && y < b + 5;
+      let on;
+      if (eye(0, 0) || eye(10, 0) || eye(0, 10)) {
+        const lx = x % 10 === x ? x : x - 10, ly = y % 10 === y ? y : y - 10;
+        on = lx === 0 || lx === 4 || ly === 0 || ly === 4 || (lx === 2 && ly === 2);
+      } else on = rnd() > .5;
+      h += `<i class="${on ? "" : "o"}"></i>`;
+    }
+    q.innerHTML = h;
+  })();
+  // вкладені клони у шаблонах
+  document.querySelectorAll("template").forEach((t) => {
+    t.content.querySelectorAll("[data-clone]").forEach((el) => {
+      el.innerHTML = document.getElementById(el.dataset.clone).innerHTML; el.removeAttribute("data-clone");
+    });
+  });
+</script>
+<script src="shared.js"></script>
+<script>
+  document.querySelectorAll("[data-clone] svg, span > svg, div.bdg > svg, .bdg svg").forEach((s) => { s.style.width = "100%"; s.style.height = "auto"; });
+  document.querySelectorAll("span[data-clone], span.c-bag, span.c-cup, span.c-badge").forEach((s) => (s.style.display = "block"));
+  document.querySelectorAll(".prod .img > span, .t-cup > span").forEach((s) => (s.style.display = "block"));
+</script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "name": "lad-case-mockups",
+  "private": true,
+  "description": "HTML-макети кейсів LAD → WebP для портфоліо. Запуск: npm install && npm run render",
+  "scripts": { "render": "node render.js" },
+  "devDependencies": { "puppeteer-core": "^23.11.1" }
+}

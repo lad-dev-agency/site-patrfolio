@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>CargoFlow — макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  :root { --bg: #0f1015; --panel: #16171e; --panel-2: #1d1e27; --line: rgba(255,255,255,.07); --text: #f3f3f6; --muted: #8a8b99; --dim: #5d5e6b;
+    --orange: #f59a3c; --pink: #e8438f; --green: #34d399; --red: #ff5d6c; --blue: #5b8cff; }
+  .ff { font-family: "Inter Tight", sans-serif; color: var(--text); font-feature-settings: "tnum" 1; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  .app { width: 1440px; height: 900px; display: grid; grid-template-columns: 76px 1fr 400px; background: var(--bg); }
+  .rail { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 22px 0; border-right: 1px solid var(--line); background: #0c0d11; }
+  .rail .lg { width: 42px; height: 42px; border-radius: 13px; background: linear-gradient(135deg, var(--orange), var(--pink)); display: grid; place-items: center; margin-bottom: 18px; }
+  .rail span { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; color: #6d6e7c; }
+  .rail span.on { background: var(--panel-2); color: #fff; box-shadow: inset 0 0 0 1px var(--line); }
+  .rail svg { stroke: currentColor; }
+
+  /* карта */
+  .mapwrap { position: relative; overflow: hidden; background: #111219; }
+  .map { position: absolute; inset: 0; }
+  .topbar { position: absolute; z-index: 3; left: 20px; right: 20px; top: 18px; display: flex; gap: 10px; align-items: center; }
+  .topbar h1 { font-size: 22px; font-weight: 700; letter-spacing: -.02em; margin-right: auto; }
+  .topbar h1 small { display: block; font-size: 13px; color: var(--muted); font-weight: 500; letter-spacing: 0; margin-top: 2px; }
+  .chip { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 11px; background: rgba(22,23,30,.85); backdrop-filter: blur(10px); border: 1px solid var(--line); font-size: 13px; font-weight: 600; color: #d3d3dc; }
+  .chip i { width: 8px; height: 8px; border-radius: 50%; }
+  .chip.pri { background: linear-gradient(135deg, var(--orange), var(--pink)); color: #fff; border: 0; }
+  .city { font: 600 12px "Inter Tight"; fill: #9a9bab; }
+  .city.big { font-size: 14px; fill: #e6e6ee; font-weight: 700; }
+  .truck { position: absolute; z-index: 2; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #1d1e27; border: 2px solid var(--orange); box-shadow: 0 0 0 6px rgba(245,154,60,.15); font-size: 15px; }
+  .truck.g { border-color: var(--green); box-shadow: 0 0 0 6px rgba(52,211,153,.14); }
+  .truck.r { border-color: var(--red); box-shadow: 0 0 0 6px rgba(255,93,108,.15); }
+  .pop { position: absolute; z-index: 4; width: 300px; padding: 16px; border-radius: 18px; background: rgba(29,30,39,.94); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 30px 60px -20px rgba(0,0,0,.7); }
+  .pop__h { display: flex; justify-content: space-between; align-items: center; }
+  .pop__h b { font-size: 16px; } .pop__h .st { font-size: 12px; font-weight: 700; color: var(--green); padding: 4px 9px; border-radius: 20px; background: rgba(52,211,153,.12); }
+  .pop .rt { display: flex; align-items: center; gap: 8px; margin: 12px 0; font-size: 14px; font-weight: 600; }
+  .pop .rt i { flex: 1; height: 2px; background: repeating-linear-gradient(90deg, var(--dim) 0 4px, transparent 4px 8px); }
+  .prog { height: 6px; border-radius: 3px; background: rgba(255,255,255,.07); overflow: hidden; }
+  .prog s { display: block; height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--orange), var(--pink)); }
+  .pop .meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 14px; }
+  .pop .meta div { padding: 8px 10px; border-radius: 10px; background: rgba(255,255,255,.04); }
+  .pop .meta small { display: block; font-size: 11px; color: var(--muted); font-weight: 600; } .pop .meta b { font-size: 14px; }
+  .kstrip { position: absolute; z-index: 3; left: 20px; right: 20px; bottom: 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .k { padding: 14px 16px; border-radius: 14px; background: rgba(22,23,30,.88); backdrop-filter: blur(10px); border: 1px solid var(--line); }
+  .k small { font-size: 12px; color: var(--muted); font-weight: 600; } .k b { display: block; font-size: 24px; font-weight: 700; letter-spacing: -.02em; margin-top: 4px; }
+  .k em { font-style: normal; font-size: 12px; font-weight: 700; margin-left: 6px; }
+  .up { color: var(--green); } .down { color: var(--red); }
+
+  /* права панель */
+  .side { border-left: 1px solid var(--line); background: var(--panel); padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+  .side__h { display: flex; justify-content: space-between; align-items: center; }
+  .side__h h3 { font-size: 17px; font-weight: 700; }
+  .tabs { display: flex; padding: 3px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line); }
+  .tabs span { flex: 1; text-align: center; padding: 7px 0; border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--muted); }
+  .tabs span.on { background: var(--panel-2); color: #fff; }
+  .ship { padding: 14px; border-radius: 14px; background: var(--panel-2); border: 1px solid var(--line); }
+  .ship.on { border-color: rgba(245,154,60,.5); box-shadow: 0 0 0 3px rgba(245,154,60,.08); }
+  .ship__t { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .ship__t .id { color: #fff; font-size: 13px; }
+  .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 20px; }
+  .b-ok { color: var(--green); background: rgba(52,211,153,.12); } .b-w { color: var(--orange); background: rgba(245,154,60,.14); } .b-r { color: var(--red); background: rgba(255,93,108,.13); } .b-b { color: #9db8ff; background: rgba(91,140,255,.14); }
+  .ship__r { display: flex; align-items: center; gap: 10px; margin: 10px 0; font-size: 15px; font-weight: 700; }
+  .ship__r i { flex: 1; height: 2px; background: linear-gradient(90deg, var(--dim), transparent); }
+  .ship__f { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 10px; }
+  .ai { padding: 14px; border-radius: 14px; background: linear-gradient(140deg, rgba(245,154,60,.16), rgba(232,67,143,.12)); border: 1px solid rgba(245,154,60,.3); font-size: 13px; line-height: 1.5; color: #e4e4ea; }
+  .ai b { color: #fff; } .ai .btn { display: inline-block; margin-top: 10px; padding: 7px 12px; border-radius: 9px; background: #fff; color: #111; font-weight: 700; font-size: 12px; }
+
+  /* ---------- водій (телефон) ---------- */
+  .drv { background: #0f1015; }
+  .drv .mini { position: relative; height: 380px; margin-top: -54px; overflow: hidden; background: #111219; }
+  .drv .card { position: relative; z-index: 3; margin: -40px 14px 0; padding: 18px; border-radius: 24px; background: var(--panel); border: 1px solid var(--line); }
+  .drv .eta { display: flex; justify-content: space-between; align-items: end; }
+  .drv .eta b { font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .drv .eta small { display: block; font-size: 13px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .drv .next { display: flex; gap: 12px; align-items: center; margin-top: 16px; padding: 12px; border-radius: 16px; background: var(--panel-2); }
+  .drv .next i { width: 42px; height: 42px; border-radius: 13px; background: rgba(245,154,60,.15); display: grid; place-items: center; font-style: normal; font-size: 20px; }
+  .drv .next b { display: block; font-size: 15px; } .drv .next small { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .drv .steps { margin: 16px 4px 0; display: grid; gap: 12px; }
+  .drv .steps div { display: flex; gap: 12px; align-items: center; font-size: 14px; font-weight: 600; color: #cfd0da; }
+  .drv .steps i { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--dim); flex: none; display: grid; place-items: center; font-style: normal; font-size: 12px; }
+  .drv .steps .d i { background: var(--green); border-color: var(--green); color: #0f1015; }
+  .drv .steps .c i { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(245,154,60,.2); }
+  .drv .steps small { margin-left: auto; color: var(--muted); font-size: 12px; }
+  .drv .act { position: absolute; left: 14px; right: 14px; bottom: 30px; display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; }
+  .drv .act span { height: 58px; border-radius: 18px; display: grid; place-items: center; font-weight: 700; font-size: 15px; background: var(--panel-2); border: 1px solid var(--line); }
+  .drv .act span.p { background: linear-gradient(135deg, var(--orange), var(--pink)); border: 0; }
+
+  /* ---------- сцени ---------- */
+  .cover { width: 1300px; height: 1150px; }
+  .cover .bwrap { position: absolute; left: 60px; top: 60px; width: 1440px; transform: scale(.8); transform-origin: 0 0; }
+  .cover .phone { position: absolute; left: 820px; top: 300px; transform: rotate(6deg); }
+  .cover .tag { position: absolute; z-index: 5; left: 40px; top: 760px; display: flex; gap: 14px; align-items: center; padding: 16px 22px 16px 16px; border-radius: 22px; background: rgba(29,30,39,.95); border: 1px solid rgba(255,255,255,.12); box-shadow: 0 30px 60px -20px rgba(0,0,0,.7); transform: rotate(-3deg); }
+  .tag i { width: 50px; height: 50px; border-radius: 16px; display: grid; place-items: center; font-style: normal; font-size: 22px; background: rgba(52,211,153,.14); }
+  .tag small { display: block; font-size: 14px; color: var(--muted); font-weight: 600; } .tag b { font-size: 20px; font-weight: 800; }
+  .flat { width: 1520px; padding: 40px; }
+</style>
+</head>
+<body>
+
+<!-- SVG-карта (стилізована Центральна Європа) -->
+<template id="mapsvg">
+  <svg class="map" viewBox="0 0 964 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="rgba(255,255,255,.035)"/></pattern>
+      <linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e8438f"/><stop offset="1" stop-color="#f59a3c"/></linearGradient>
+      <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#f59a3c" stop-opacity=".25"/><stop offset="1" stop-color="#f59a3c" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="964" height="900" fill="url(#grid)"/>
+    <!-- країни: Польща, Україна, Румунія, Словаччина/Угорщина, Німеччина -->
+    <path d="M60 170 L250 140 330 120 420 150 470 230 450 330 380 380 270 390 170 360 110 300 70 240Z" fill="#191a23" stroke="#2a2b37" stroke-width="1.5"/>
+    <path d="M470 230 L560 200 680 190 790 220 900 260 940 340 910 430 830 470 760 520 680 560 600 540 560 480 470 470 420 420 450 330Z" fill="#1c1d27" stroke="#33343f" stroke-width="1.5"/>
+    <path d="M420 420 L470 470 560 480 600 540 580 620 500 660 400 650 350 590 360 500Z" fill="#191a23" stroke="#2a2b37" stroke-width="1.5"/>
+    <path d="M170 360 L270 390 380 380 420 420 360 500 260 520 180 480 140 420Z" fill="#17181f" stroke="#2a2b37" stroke-width="1.5"/>
+    <path d="M0 140 L60 170 70 240 110 300 170 360 140 420 60 470 0 470Z" fill="#17181f" stroke="#2a2b37" stroke-width="1.5"/>
+    <path d="M680 560 L760 520 830 470 870 560 820 650 720 690 640 660 600 600Z" fill="#14151c" stroke="#262733"/>
+    <!-- дороги -->
+    <g stroke="rgba(255,255,255,.07)" stroke-width="2" fill="none">
+      <path d="M40 260 C150 250 250 260 300 255 S420 300 520 330 S650 300 700 290"/><path d="M700 290 C760 330 800 400 790 470"/><path d="M520 330 C540 420 560 500 610 590"/><path d="M300 255 C320 330 330 400 300 470"/>
+    </g>
+    <!-- активні маршрути -->
+    <circle cx="700" cy="290" r="90" fill="url(#glow)"/>
+    <path d="M700 290 C620 300 560 320 520 330 S380 270 300 255" fill="none" stroke="url(#rg)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M700 290 C620 300 560 320 520 330 S380 270 300 255" fill="none" stroke="#f59a3c" stroke-width="12" stroke-opacity=".12" stroke-linecap="round"/>
+    <path d="M700 290 C760 330 800 400 790 470" fill="none" stroke="#34d399" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+    <path d="M520 330 C540 420 560 500 610 590" fill="none" stroke="#5b8cff" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+    <path d="M300 255 C230 250 150 250 40 262" fill="none" stroke="#ff5d6c" stroke-width="3" stroke-dasharray="8 7" stroke-linecap="round" opacity=".8"/>
+    <!-- міста -->
+    <g fill="#fff"><circle cx="700" cy="290" r="6"/><circle cx="520" cy="330" r="5"/><circle cx="300" cy="255" r="6"/><circle cx="790" cy="470" r="5"/><circle cx="610" cy="590" r="4"/><circle cx="40" cy="262" r="4"/><circle cx="250" cy="430" r="4"/></g>
+    <text class="city big" x="716" y="284">Київ</text><text class="city big" x="530" y="352">Львів</text><text class="city big" x="252" y="240">Варшава</text>
+    <text class="city" x="804" y="474">Дніпро</text><text class="city" x="620" y="606">Чернівці</text><text class="city" x="48" y="250">Берлін</text><text class="city" x="214" y="452">Краків</text>
+  </svg>
+</template>
+
+<template id="dash">
+  <div class="app ff">
+    <aside class="rail">
+      <span class="lg" style="width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#f59a3c,#e8438f);color:#fff"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.8" fill="#fff"/><circle cx="17" cy="17.5" r="1.8" fill="#fff"/></svg></span>
+      <span class="on"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg></span>
+      <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 14h3"/></svg></span>
+      <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.6c1.6.8 2.6 2.6 3 5.4"/></svg></span>
+      <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 3v18h18M7 15l4-4 3 3 6-6"/></svg></span>
+      <span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></span>
+    </aside>
+
+    <section class="mapwrap">
+      <div data-clone="mapsvg"></div>
+      <div class="topbar"><h1>Диспетчерська<small>128 рейсів у дорозі · оновлено щойно</small></h1>
+        <span class="chip"><i style="background:#34d399"></i>Вчасно 112</span><span class="chip"><i style="background:#f59a3c"></i>Ризик 11</span><span class="chip"><i style="background:#ff5d6c"></i>Затримка 5</span><span class="chip pri">+ Новий рейс</span></div>
+      <span class="truck" style="left:430px;top:290px">🚚</span>
+      <span class="truck g" style="left:715px;top:385px">🚚</span>
+      <span class="truck" style="left:535px;top:440px;border-color:#5b8cff;box-shadow:0 0 0 6px rgba(91,140,255,.15)">🚚</span>
+      <span class="truck r" style="left:150px;top:245px">🚚</span>
+      <div class="pop" style="left:330px;top:110px">
+        <div class="pop__h"><b class="mono">AA 4821 KX</b><span class="st">● Вчасно</span></div>
+        <div class="rt">Київ<i></i>Варшава</div>
+        <div class="prog"><s style="width:62%"></s></div>
+        <div class="meta"><div><small>Прибуття</small><b>14:20</b></div><div><small>Залишок</small><b>318 км</b></div><div><small>Вантаж</small><b>18,4 т</b></div></div>
+      </div>
+      <div class="kstrip">
+        <div class="k"><small>Рейсів у дорозі</small><b>128<em class="up">+14</em></b></div>
+        <div class="k"><small>Завантаженість парку</small><b>92%<em class="up">+11%</em></b></div>
+        <div class="k"><small>Порожні рейси</small><b>6,4%<em class="up">−35%</em></b></div>
+        <div class="k"><small>Вчасна доставка</small><b>98,1%<em class="up">+4,2%</em></b></div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="side__h"><h3>Рейси</h3><span class="chip" style="height:32px">Сьогодні ⌄</span></div>
+      <div class="tabs"><span class="on">Усі · 128</span><span>Ризик · 11</span><span>Затримка · 5</span></div>
+      <div class="ship on"><div class="ship__t"><span class="id mono">UA-4821</span><span class="badge b-ok">В дорозі</span></div><div class="ship__r">Київ<i></i>Варшава</div><div class="prog"><s style="width:62%"></s></div><div class="ship__f"><span>Андрій П. · Volvo FH</span><span>ETA 14:20</span></div></div>
+      <div class="ship"><div class="ship__t"><span class="id mono">UA-4790</span><span class="badge b-b">Розвантаження</span></div><div class="ship__r">Львів<i></i>Чернівці</div><div class="prog"><s style="width:94%;background:#5b8cff"></s></div><div class="ship__f"><span>Олег К. · DAF XF</span><span>склад №3</span></div></div>
+      <div class="ship"><div class="ship__t"><span class="id mono">EU-1207</span><span class="badge b-r">+40 хв</span></div><div class="ship__r">Варшава<i></i>Берлін</div><div class="prog"><s style="width:38%;background:#ff5d6c"></s></div><div class="ship__f"><span>Марек В. · Scania R</span><span>черга на кордоні</span></div></div>
+      <div class="ai">✦ <b>Знайдено зворотний вантаж</b> для UA-4821: Варшава → Київ, 16 т, ₴48 000. Порожній пробіг −640 км.<br><span class="btn">Призначити</span></div>
+    </aside>
+  </div>
+</template>
+
+<template id="driver" data-class="ff drv">
+  <div class="mini"><div data-clone="mapsvg" style="position:absolute;inset:-60px -320px 0 -380px"></div></div>
+  <div class="card">
+    <div class="eta"><div><small>Прибуття до Варшави</small><b>14:20</b></div><span class="badge b-ok" style="font-size:13px;padding:6px 12px">Вчасно</span></div>
+    <div class="prog" style="margin-top:14px"><s style="width:62%"></s></div>
+    <div class="next"><i>⛽</i><div><b>Відпочинок через 1 год 10 хв</b><small>АЗС WOG, Рава-Руська · 86 км</small></div></div>
+    <div class="steps">
+      <div class="d"><i>✓</i>Завантаження · Київ<small>05:40</small></div>
+      <div class="d"><i>✓</i>Митниця · Ягодин<small>10:15</small></div>
+      <div class="c"><i></i>Розвантаження · Варшава<small>14:20</small></div>
+    </div>
+  </div>
+  <div class="act"><span>📞 Диспетчер</span><span class="p">Фото CMR</span></div>
+</template>
+
+<div class="stage">
+  <div class="scene cover" data-shot="cover">
+    <div class="bwrap"><div class="browser"><div class="browser__bar dark"><span class="dots"><i></i><i></i><i></i></span><span class="url">app.cargoflow.ua</span></div><div data-clone="dash"></div></div></div>
+    <div class="phone" data-screen="driver"></div>
+    <div class="tag ff"><i>✓</i><div><small>Вантаж UA-4790 доставлено</small><b>Чернівці · на 25 хв раніше</b></div></div>
+  </div>
+  <div class="scene flat" data-shot="dashboard">
+    <div class="browser"><div class="browser__bar dark"><span class="dots"><i></i><i></i><i></i></span><span class="url">app.cargoflow.ua</span></div><div data-clone="dash"></div></div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll("template").forEach((t) => {
+    t.content.querySelectorAll('[data-clone="mapsvg"]').forEach((el) => { el.innerHTML = document.getElementById("mapsvg").innerHTML; el.removeAttribute("data-clone"); });
+  });
+</script>
+<script src="shared.js"></script>
+</body>
+</html>

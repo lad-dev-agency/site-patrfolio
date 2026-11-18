@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Monetra — макет</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  :root {
+    --bg: #0c0b14; --card: #17152a; --card-2: #201d38; --line: rgba(255,255,255,.07);
+    --text: #f5f3ff; --muted: #8f8aad; --violet: #7b5cff; --pink: #e8438f; --green: #3ddc97; --amber: #ffb547;
+    --grad: linear-gradient(135deg, #7b5cff 0%, #b04dd8 55%, #e8438f 100%);
+  }
+  .app { font-family: "Plus Jakarta Sans", sans-serif; color: var(--text); background: var(--bg); }
+  .app::before { /* м'яке світіння зверху */
+    content: ""; position: absolute; inset: -120px -80px auto; height: 420px;
+    background: radial-gradient(closest-side, rgba(123,92,255,.35), transparent); pointer-events: none;
+  }
+  .pad { position: relative; padding: 0 22px; }
+
+  /* header */
+  .hdr { display: flex; align-items: center; justify-content: space-between; margin: 10px 0 22px; }
+  .who { display: flex; align-items: center; gap: 12px; }
+  .ava { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #ffb547, #e8438f); display: grid; place-items: center; font-weight: 800; font-size: 16px; color: #1a0f1f; }
+  .who small { display: block; font-size: 13px; color: var(--muted); font-weight: 500; }
+  .who b { font-size: 17px; font-weight: 700; }
+  .icon-btn { width: 44px; height: 44px; border-radius: 14px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; position: relative; }
+  .icon-btn .dot { position: absolute; top: 10px; right: 11px; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); box-shadow: 0 0 0 2px var(--card); }
+
+  /* balance card */
+  .bal { position: relative; overflow: hidden; border-radius: 28px; padding: 22px 22px 20px; background: var(--grad); box-shadow: 0 30px 60px -25px rgba(176,77,216,.8); }
+  .bal::after { content: ""; position: absolute; right: -60px; top: -80px; width: 220px; height: 220px; border-radius: 50%; background: rgba(255,255,255,.12); }
+  .bal::before { content: ""; position: absolute; right: 40px; bottom: -110px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,.08); }
+  .bal__top { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; opacity: .85; }
+  .cur { display: flex; gap: 6px; }
+  .cur span { padding: 5px 10px; border-radius: 20px; background: rgba(255,255,255,.16); font-size: 12px; font-weight: 700; }
+  .cur span.on { background: #fff; color: #5b3fd6; }
+  .bal__sum { margin: 14px 0 4px; font-size: 40px; font-weight: 800; letter-spacing: -.02em; }
+  .bal__sum small { font-size: 24px; opacity: .7; font-weight: 700; }
+  .bal__delta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 5px 10px; border-radius: 20px; background: rgba(12,11,20,.25); }
+  .bal__card { display: flex; justify-content: space-between; align-items: center; margin-top: 22px; font-size: 14px; font-weight: 600; letter-spacing: .12em; opacity: .9; }
+  .mc { display: flex; } .mc i { width: 26px; height: 26px; border-radius: 50%; background: #ff5f3a; } .mc i + i { margin-left: -10px; background: #ffb547; opacity: .9; }
+
+  /* actions */
+  .acts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 22px 0 26px; }
+  .act { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #cfcbe6; }
+  .act i { width: 60px; height: 60px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); display: grid; place-items: center; }
+  .act:first-child i { background: #fff; }
+
+  .sec { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .sec h3 { font-size: 18px; font-weight: 700; }
+  .sec a { font-size: 14px; color: #a78bff; font-weight: 600; }
+
+  .tx { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tx:last-child { border: 0; }
+  .tx__ic { width: 46px; height: 46px; border-radius: 15px; display: grid; place-items: center; font-weight: 800; font-size: 17px; flex: none; }
+  .tx__t { flex: 1; } .tx__t b { display: block; font-size: 16px; font-weight: 700; } .tx__t small { font-size: 13px; color: var(--muted); font-weight: 500; }
+  .tx__v { font-weight: 700; font-size: 16px; text-align: right; } .tx__v small { display: block; font-size: 12px; color: var(--muted); font-weight: 500; }
+  .plus { color: var(--green); }
+
+  /* tab bar */
+  .tabs { position: absolute; left: 14px; right: 14px; bottom: 26px; height: 74px; border-radius: 26px; display: flex; justify-content: space-around; align-items: center;
+    background: rgba(28,25,48,.82); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,.08); box-shadow: 0 20px 40px -10px rgba(0,0,0,.6); }
+  .tabs span { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #77729a; }
+  .tabs span.on { color: #fff; }
+  .tabs span.on svg { stroke: #fff; }
+  .tabs .fab { width: 54px; height: 54px; border-radius: 18px; background: var(--grad); display: grid; place-items: center; box-shadow: 0 10px 24px -6px rgba(232,67,143,.7); }
+
+  /* analytics */
+  .seg { display: flex; padding: 4px; border-radius: 16px; background: var(--card); border: 1px solid var(--line); margin-bottom: 22px; }
+  .seg span { flex: 1; text-align: center; padding: 10px 0; border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .seg span.on { background: var(--card-2); color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,.3); }
+  .donut-wrap { position: relative; display: grid; place-items: center; margin: 4px 0 18px; }
+  .donut-c { position: absolute; text-align: center; }
+  .donut-c small { display: block; font-size: 13px; color: var(--muted); font-weight: 600; }
+  .donut-c b { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+  .donut-c em { display: inline-block; margin-top: 6px; font-style: normal; font-size: 12px; font-weight: 700; color: var(--green); padding: 3px 9px; border-radius: 20px; background: rgba(61,220,151,.12); }
+  .cats { display: grid; gap: 10px; }
+  .cat { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 18px; background: var(--card); border: 1px solid var(--line); }
+  .cat i { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; font-style: normal; font-size: 18px; }
+  .cat div { flex: 1; } .cat b { display: block; font-size: 15px; font-weight: 700; }
+  .cat .bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,.07); margin-top: 7px; overflow: hidden; }
+  .cat .bar s { display: block; height: 100%; border-radius: 3px; }
+  .cat strong { font-size: 15px; font-weight: 700; }
+  .tip { display: flex; gap: 12px; align-items: flex-start; margin-top: 14px; padding: 14px 16px; border-radius: 18px; background: linear-gradient(135deg, rgba(123,92,255,.22), rgba(232,67,143,.16)); border: 1px solid rgba(167,139,255,.25); font-size: 14px; line-height: 1.45; color: #e2dcff; font-weight: 500; }
+  .tip b { color: #fff; }
+  .tip i { font-style: normal; font-size: 20px; }
+
+  /* exchange */
+  .title { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 8px 0 20px; }
+  .ex { position: relative; display: grid; gap: 8px; }
+  .ex__box { padding: 18px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); }
+  .ex__box small { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .ex__row { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+  .ex__row b { font-size: 34px; font-weight: 800; letter-spacing: -.02em; }
+  .ccy { display: flex; align-items: center; gap: 8px; padding: 7px 12px 7px 7px; border-radius: 30px; background: var(--card-2); font-weight: 700; font-size: 15px; }
+  .flag { width: 26px; height: 26px; border-radius: 50%; overflow: hidden; display: grid; }
+  .flag.ua { background: linear-gradient(#2a6be6 50%, #ffd02e 50%); }
+  .flag.us { background: repeating-linear-gradient(#d33 0 3px, #fff 3px 6px); position: relative; }
+  .flag.us::before { content: ""; position: absolute; width: 13px; height: 13px; background: #2b3f8f; }
+  .swap { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 46px; height: 46px; border-radius: 15px; background: var(--grad); display: grid; place-items: center; border: 4px solid var(--bg); }
+  .rate { display: flex; justify-content: space-between; margin: 16px 4px 18px; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .rate b { color: #fff; }
+  .spark { padding: 16px; border-radius: 22px; background: var(--card); border: 1px solid var(--line); }
+  .spark__h { display: flex; justify-content: space-between; font-size: 14px; font-weight: 600; color: var(--muted); }
+  .spark__h b { color: var(--green); }
+  .keys { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 10px; margin-top: 16px; }
+  .keys span { height: 44px; display: grid; place-items: center; font-size: 24px; font-weight: 600; color: #e8e5fa; }
+  .cta { margin-top: 12px; height: 58px; border-radius: 20px; background: #fff; color: #0c0b14; display: grid; place-items: center; font-weight: 800; font-size: 17px; }
+
+  /* ---------- сцена обкладинки ---------- */
+  .cover { width: 1180px; height: 1010px; }
+  .cover .phone { position: absolute; }
+  .cover .p-back { left: 560px; top: 70px; transform: rotate(9deg); filter: brightness(.82); }
+  .cover .p-front { left: 210px; top: 20px; transform: rotate(-6deg); }
+  .float { position: absolute; z-index: 5; display: flex; align-items: center; gap: 14px; padding: 16px 22px 16px 16px; border-radius: 24px;
+    font-family: "Plus Jakarta Sans", sans-serif; color: #fff;
+    background: rgba(30,26,52,.78); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); }
+  .float i { width: 50px; height: 50px; border-radius: 16px; display: grid; place-items: center; font-style: normal; font-weight: 800; font-size: 20px; }
+  .float small { display: block; font-size: 14px; color: #aaa4cc; font-weight: 600; }
+  .float b { font-size: 21px; font-weight: 800; }
+  .f1 { left: 20px; top: 470px; transform: rotate(-3deg); }
+  .f2 { left: 860px; top: 40px; transform: rotate(4deg); }
+
+  .gallery { width: 1500px; height: 960px; display: flex; gap: 70px; justify-content: center; align-items: center; }
+  .gallery .phone:nth-child(2) { transform: translateY(-30px); }
+</style>
+</head>
+<body>
+
+<!-- ================= ЕКРАН 1: Головна ================= -->
+<template id="home" data-class="app">
+  <div class="pad">
+    <div class="hdr">
+      <div class="who"><span class="ava">О</span><div><small>Добрий ранок,</small><b>Олена Коваль</b></div></div>
+      <span class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg><i class="dot"></i></span>
+    </div>
+
+    <div class="bal">
+      <div class="bal__top"><span>Загальний баланс</span><span class="cur"><span class="on">UAH</span><span>USD</span><span>EUR</span></span></div>
+      <div class="bal__sum">₴48 250<small>,00</small></div>
+      <span class="bal__delta">↑ 12,4% за місяць</span>
+      <div class="bal__card"><span>•••• 4821</span><span class="mc"><i></i><i></i></span></div>
+    </div>
+
+    <div class="acts">
+      <span class="act"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0c0b14" stroke-width="2.2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg></i>Переказ</span>
+      <span class="act"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></i>Поповнити</span>
+      <span class="act"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></i>Обмін</span>
+      <span class="act"><i><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></i>Ще</span>
+    </div>
+
+    <div class="sec"><h3>Останні операції</h3><a>Усі</a></div>
+    <div class="tx"><span class="tx__ic" style="background:#1f7a3d;color:#c9ffd9">U</span><div class="tx__t"><b>Upwork</b><small>Надходження · 09:12</small></div><div class="tx__v plus">+$1 240<small>≈ ₴51 460</small></div></div>
+    <div class="tx"><span class="tx__ic" style="background:#ff6b2c;color:#fff">С</span><div class="tx__t"><b>Сільпо</b><small>Продукти · Вчора</small></div><div class="tx__v">−₴642<small>Кешбек ₴13</small></div></div>
+    <div class="tx"><span class="tx__ic" style="background:#2b2840;color:#ffd84d">Ub</span><div class="tx__t"><b>Uklon</b><small>Транспорт · Вчора</small></div><div class="tx__v">−₴189</div></div>
+  </div>
+  <div class="tabs">
+    <span class="on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#77729a" stroke-width="2" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Головна</span>
+    <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#77729a" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Аналітика</span>
+    <span class="fab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg></span>
+    <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#77729a" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/></svg>Картки</span>
+    <span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#77729a" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Профіль</span>
+  </div>
+</template>
+
+<!-- ================= ЕКРАН 2: Аналітика ================= -->
+<template id="stats" data-class="app">
+  <div class="pad">
+    <div class="hdr">
+      <span class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></span>
+      <b style="font-size:18px">Витрати</b>
+      <span class="icon-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+    </div>
+    <div class="seg"><span>Тиждень</span><span class="on">Листопад</span><span>Рік</span></div>
+
+    <div class="donut-wrap">
+      <svg width="240" height="240" viewBox="0 0 240 240">
+        <defs><linearGradient id="dg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7b5cff"/><stop offset="1" stop-color="#e8438f"/></linearGradient></defs>
+        <circle cx="120" cy="120" r="96" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="22"/>
+        <!-- довжина кола 603 -->
+        <circle cx="120" cy="120" r="96" fill="none" stroke="url(#dg)" stroke-width="22" stroke-linecap="round" stroke-dasharray="230 373" transform="rotate(-90 120 120)"/>
+        <circle cx="120" cy="120" r="96" fill="none" stroke="#3ddc97" stroke-width="22" stroke-linecap="round" stroke-dasharray="140 463" stroke-dashoffset="-246" transform="rotate(-90 120 120)"/>
+        <circle cx="120" cy="120" r="96" fill="none" stroke="#ffb547" stroke-width="22" stroke-linecap="round" stroke-dasharray="100 503" stroke-dashoffset="-402" transform="rotate(-90 120 120)"/>
+        <circle cx="120" cy="120" r="96" fill="none" stroke="#22b8ff" stroke-width="22" stroke-linecap="round" stroke-dasharray="60 543" stroke-dashoffset="-518" transform="rotate(-90 120 120)"/>
+      </svg>
+      <div class="donut-c"><small>Витрачено</small><b>₴18 430</b><br><em>−8% до жовтня</em></div>
+    </div>
+
+    <div class="cats">
+      <div class="cat"><i style="background:rgba(123,92,255,.18)">🛒</i><div><b>Продукти</b><div class="bar"><s style="width:72%;background:linear-gradient(90deg,#7b5cff,#e8438f)"></s></div></div><strong>₴7 020</strong></div>
+      <div class="cat"><i style="background:rgba(61,220,151,.15)">🏠</i><div><b>Оренда і комуналка</b><div class="bar"><s style="width:48%;background:#3ddc97"></s></div></div><strong>₴4 280</strong></div>
+      <div class="cat"><i style="background:rgba(255,181,71,.15)">☕</i><div><b>Кафе</b><div class="bar"><s style="width:34%;background:#ffb547"></s></div></div><strong>₴3 060</strong></div>
+    </div>
+    <div class="tip"><i>✦</i><span>На таксі ви витратили <b>на 18% менше</b>, ніж у жовтні. Відкласти різницю ₴420 на «Відпустку»?</span></div>
+  </div>
+</template>
+
+<!-- ================= ЕКРАН 3: Обмін ================= -->
+<template id="exchange" data-class="app">
+  <div class="pad">
+    <div class="title">Обмін валют</div>
+    <div class="ex">
+      <div class="ex__box"><small>Віддаю</small><div class="ex__row"><b>1 000</b><span class="ccy"><i class="flag us"></i>USD ⌄</span></div></div>
+      <div class="ex__box"><small>Отримую</small><div class="ex__row"><b>41 380</b><span class="ccy"><i class="flag ua"></i>UAH ⌄</span></div></div>
+      <span class="swap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l-4-4M17 20l4-4"/></svg></span>
+    </div>
+    <div class="rate"><span>Курс</span><span><b>1 $ = 41,38 ₴</b> · без комісії</span></div>
+    <div class="spark">
+      <div class="spark__h"><span>USD / UAH · 30 днів</span><b>+0,6%</b></div>
+      <svg width="100%" height="80" viewBox="0 0 320 80" preserveAspectRatio="none" style="margin-top:10px">
+        <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3ddc97" stop-opacity=".35"/><stop offset="1" stop-color="#3ddc97" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 60 L20 55 40 58 60 48 80 52 100 40 120 44 140 36 160 42 180 30 200 34 220 26 240 30 260 20 280 24 300 14 320 18 V80 H0Z" fill="url(#sg)"/>
+        <path d="M0 60 L20 55 40 58 60 48 80 52 100 40 120 44 140 36 160 42 180 30 200 34 220 26 240 30 260 20 280 24 300 14 320 18" fill="none" stroke="#3ddc97" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <div class="keys"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>,</span><span>0</span><span>⌫</span></div>
+    <div class="cta">Обміняти</div>
+  </div>
+</template>
+
+<!-- ================= ОБКЛАДИНКА ================= -->
+<div class="stage">
+  <div class="scene cover" data-shot="cover">
+    <div class="phone p-back" data-screen="stats"></div>
+    <div class="phone p-front" data-screen="home"></div>
+    <div class="float f1"><i style="background:#1f7a3d;color:#c9ffd9">U</i><div><small>Надійшло від Upwork</small><b>+$1 240,00</b></div></div>
+    <div class="float f2"><i style="background:linear-gradient(135deg,#7b5cff,#e8438f)">✦</i><div><small>Ціль «Відпустка»</small><b>68% · ₴34 000</b></div></div>
+  </div>
+
+  <!-- ================= ГАЛЕРЕЯ ================= -->
+  <div class="scene gallery" data-shot="screens">
+    <div class="phone" data-screen="stats"></div>
+    <div class="phone" data-screen="home"></div>
+    <div class="phone" data-screen="exchange"></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+</body>
+</html>
